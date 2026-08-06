@@ -150,7 +150,7 @@ export default function PricingPage() {
             <span>1 Loader + 1 QC: $1,048</span>
             <span>3 Loaders + 2 QCs: $2,595</span>
             <span>5 Loaders + 3 QCs: $4,641</span>
-            <span>10 Loaders + 6 QCs: $9,284</span>
+            <span>10 Loaders + 6 QCs: $8,284</span>
           </div>
         </article>
       </section>
@@ -159,7 +159,7 @@ export default function PricingPage() {
         <h2>Record a commission</h2>
         <form className={styles.form} onSubmit={saveCommission}>
           <label>Client<select name="leadId" required defaultValue=""><option value="" disabled>Select a lead</option>{leads.map((lead) => <option key={lead.id} value={lead.id}>{lead.company}</option>)}</select></label>
-          <label>Client billing<input name="clientBilling" min="0" step="0.01" type="number" defaultValue={combinedQuote} required /></label>
+          <label>Client billing<input key={combinedQuote} name="clientBilling" min="0" step="0.01" type="number" defaultValue={combinedQuote} required /></label>
           <label>Billing month<input name="billingMonth" type="month" defaultValue={new Date().toISOString().slice(0, 7)} required /></label>
           <label>Received so far<input name="receivedAmount" min="0" step="0.01" type="number" defaultValue="0" /></label>
           <label>Status<select name="status" defaultValue="Expected"><option>Expected</option><option>Invoiced</option><option>Part Paid</option><option>Paid</option><option>Disputed</option></select></label>
