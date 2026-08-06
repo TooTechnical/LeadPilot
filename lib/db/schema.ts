@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import { integer, numeric, pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 export const leadStage = pgEnum("lead_stage", [
@@ -55,6 +56,19 @@ export const commissions = pgTable("commissions", {
   status: text("status").notNull().default("Expected"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
+
+export const leadRelations = relations(leads, ({ many }) => ({
+  activities: many(activities),
+  commissions: many(commissions),
+}));
+
+export const activityRelations = relations(activities, ({ one }) => ({
+  lead: one(leads, { fields: [activities.leadId], references: [leads.id] }),
+}));
+
+export const commissionRelations = relations(commissions, ({ one }) => ({
+  lead: one(leads, { fields: [commissions.leadId], references: [leads.id] }),
+}));
 
 export type Lead = typeof leads.$inferSelect;
 export type NewLead = typeof leads.$inferInsert;
